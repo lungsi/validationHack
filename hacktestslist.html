@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <title>HBP Hackathon Validation</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="app.css">
+  </head>
+  <body>
+    <iframe id="hbp_oidc_frame" src="hacktests_files/session-page." style="display: none" width="1" height="1"></iframe>
+<script>
+  validateToken('eyJhbGciOiJSUzI1NiIsImtpZCI6ImJicC1vaWRjIn0.eyJleHAiOjE0OTY3NTM5MzMsInN1YiI6IjMwMjUwOCIsImF1ZCI6WyI4YTZiNzQ1OC0xMDQ0LTRlYmQtOWI3ZS1mOGZkMzQ2OTA2OWMiXSwiaXNzIjoiaHR0cHM6XC9cL3NlcnZpY2VzLmh1bWFuYnJhaW5wcm9qZWN0LmV1XC9vaWRjXC8iLCJqdGkiOiI1MDAyZTUxMC1jYmJiLTQ2ZDMtYmE2OS1kNGIxMDU3Nzg0NjIiLCJpYXQiOjE0OTY3Mzk1MzMsImhicF9rZXkiOiIzY2U0ODAyMmMwZTkxMWRhNjczNDZkMzlkMGJhNmQ2NDdmYTc1YjNmIn0.e5iL6Ic2LrM8OO8tSDumekG_CmFfF4aCKbRvwTlIjswaGJGij5Y5F61uTZVaMbC75L4Hks1yo1BJKIKmenCnTPFAHovWheqCtcOOAqGQNL2UAAaQU61eAqbIqmbQCmoIhVwn1e_0yjpYMkv4qdvr8CY4b2HSDXBejGKZZKvE_mc');
+
+  /**
+   * it sends a message to the oidc iframe with the current token to validate
+   * against the current OIDC session.
+   */
+  function validateToken(token) {
+    var msg = JSON.stringify({
+      token: token
+    });
+    var iframe = document.getElementById('hbp_oidc_frame');
+    iframe.addEventListener("load", function() {
+      iframe.contentWindow.postMessage(msg, '*');
+    });
+  }
+
+  /**
+   * waits for reply from oidc iframe.
+   * The oidc ifram returns a boolean telling if the logged in user
+   * is the same of the one linked to the token.
+   */
+  function receiveMessage(event) {
+    if(event.origin.match(/^https:\/\/services(-dev)?.humanbrainproject.eu$/)) {
+      if(event.data === false) {
+        var logoutUrl = '/logout/hbp/?redirect=' + window.location.href;
+        window.location.href = logoutUrl;
+      }
+    }
+  }
+
+  window.addEventListener('message', receiveMessage, false);
+</script>
+
+
+    <nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="https://validation.brainsimulation.eu/">Brain Simulation Platform</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="https://validation.brainsimulation.eu/view/models/">Model Catalog</a></li>
+        <li class="active"><a href="https://validation.brainsimulation.eu/view/tests/">Validation Tests</a></li>
+        <li><a href="https://validation.brainsimulation.eu/view/results/">Test Results</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+  </nav>
+
+    <div class="app container-fluid">
+
+      <div class="row">
+      <main class="page">
+      
+
+<h1>Validation tests</h1>
+
+<p>Filters:
+    <a href="https://validation.brainsimulation.eu/view/tests/?species=mouse"><span class="label label-info">Macaque</span></a>
+    <a href="https://validation.brainsimulation.eu/view/tests/?brain_region=cortex"><span class="label label-info">Cortex</span></a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Species</th>
+        <th>Age</th>
+        <th>Brain region</th>
+        <th>Cell type</th>
+        <th>Data location</th>
+        <th>Data type</th>
+        <th>Data modality</th>
+        <th>Test type</th>
+        <th>Code location</th>
+        <th>Author</th>
+        <th>Publication</th>
+    </tr>
+    </thead>
+    <tbody>
+
+    <tr>
+        <td><a href="https://lungsi.github.io/validationHack/hacktest1">density function test 1</a></td>
+        <td>macaque</td>
+        <td>NA</td>
+        <td>pre-motor and motor</td>
+        <td>point neuron</td>
+        <td>collab://3653/experimentaldata_rest_trial0_inh.json</td>
+        <td>uncertain quantity</td>
+        <td>electrophysiology</td>
+        <td>population cell activity</td>
+        <td><a href="https://github.com/apdavison/hippounit.git" rel="nofollow">https://github.co...</a></td>
+        <td>Mathew von Papen</td>
+        <td>unpublished</td>
+    </tr>
+
+    </tbody>
+</table>
+
+
+      </main>
+      </div>
+    </div>
+
+  
+
+</body></html>
