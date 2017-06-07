@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>HBP Hackathon Validation</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width">
+
+    <link rel="stylesheet" href="bootstrap.css">
+    <link rel="stylesheet" href="app.css">
+  </head>
+  <body>
+    <iframe id="hbp_oidc_frame" src="https://services.humanbrainproject.eu/oidc/session-page" width="1" height="1" style="display: none"></iframe>
+<script>
+  validateToken('eyJhbGciOiJSUzI1NiIsImtpZCI6ImJicC1vaWRjIn0.eyJleHAiOjE0OTY3NTM5MzMsInN1YiI6IjMwMjUwOCIsImF1ZCI6WyI4YTZiNzQ1OC0xMDQ0LTRlYmQtOWI3ZS1mOGZkMzQ2OTA2OWMiXSwiaXNzIjoiaHR0cHM6XC9cL3NlcnZpY2VzLmh1bWFuYnJhaW5wcm9qZWN0LmV1XC9vaWRjXC8iLCJqdGkiOiI1MDAyZTUxMC1jYmJiLTQ2ZDMtYmE2OS1kNGIxMDU3Nzg0NjIiLCJpYXQiOjE0OTY3Mzk1MzMsImhicF9rZXkiOiIzY2U0ODAyMmMwZTkxMWRhNjczNDZkMzlkMGJhNmQ2NDdmYTc1YjNmIn0.e5iL6Ic2LrM8OO8tSDumekG_CmFfF4aCKbRvwTlIjswaGJGij5Y5F61uTZVaMbC75L4Hks1yo1BJKIKmenCnTPFAHovWheqCtcOOAqGQNL2UAAaQU61eAqbIqmbQCmoIhVwn1e_0yjpYMkv4qdvr8CY4b2HSDXBejGKZZKvE_mc');
+
+  /**
+   * it sends a message to the oidc iframe with the current token to validate
+   * against the current OIDC session.
+   */
+  function validateToken(token) {
+    var msg = JSON.stringify({
+      token: token
+    });
+    var iframe = document.getElementById('hbp_oidc_frame');
+    iframe.addEventListener("load", function() {
+      iframe.contentWindow.postMessage(msg, '*');
+    });
+  }
+
+  /**
+   * waits for reply from oidc iframe.
+   * The oidc ifram returns a boolean telling if the logged in user
+   * is the same of the one linked to the token.
+   */
+  function receiveMessage(event) {
+    if(event.origin.match(/^https:\/\/services(-dev)?.humanbrainproject.eu$/)) {
+      if(event.data === false) {
+        var logoutUrl = '/logout/hbp/?redirect=' + window.location.href;
+        window.location.href = logoutUrl;
+      }
+    }
+  }
+
+  window.addEventListener('message', receiveMessage, false);
+</script>
+
+
+    <nav class="navbar navbar-default navbar-static-top">
+    <div class="container-fluid">
+    <!-- Brand and toggle get grouped for better mobile display -->
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Brain Simulation Platform</a>
+    </div>
+
+    <!-- Collect the nav links, forms, and other content for toggling -->
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li><a href="/view/models/">Model Catalog</a></li>
+        <li class="active"><a href="/view/tests/">Validation Tests</a></li>
+        <li><a href="/view/results/">Test Results</a></li>
+      </ul>
+    </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+  </nav>
+
+    <div class="app container-fluid">
+
+      <div class="row">
+      <main class="page">
+      
+
+<h1>Validation test: density function test 1</h1>
+<p><a href="https://lungsi.github.io/validationHack/hacktestlist">back</a></p>
+
+<table class="table table-striped">
+    <tbody>
+        <tr><td>ID</td><td>2</td></tr>
+        <tr><td>Name</td><td>density function test 2</td></tr>
+        <tr><td>Species</td><td>macaque</td></tr>
+        <tr><td>Brain region</td><td>pre-motor and motor</td></tr>
+        <tr><td>Cell type</td><td>point-neuron</td></tr>
+        <tr><td>Age</td><td>NA</td></tr>
+        <tr><td>Data location</td><td>collab://3653/experimentaldata_move_trial0_inh.json</td></tr>
+        <tr><td>Data type</td><td>uncertain quantity</td></tr>
+        <tr><td>Data modality</td><td>electrophysiology</td></tr>
+        <tr><td>Test type</td><td>population cell activity</td></tr>
+        <tr><td>Author</td><td>Mathew von Papen</td></tr>
+        <tr><td>Publication</td><td>Unpublished <a href="" rel="nofollow"></a></td></tr>
+        <tr><td>Protocol</td><td>(1) .
+
+(2) .</td></tr>
+    </tbody>
+</table>
+
+<h2>Code versions</h2>
+<table class="table table-striped">
+    <thead>
+    <tr><th>Repository</th>
+        <th>Version</th>
+        <th>Test class</th>
+        <th>Date/time</th></tr>
+    </thead>
+    <tbody>
+    
+    <tr><td><a href="https://github.com/lungsi/validationHack.git" rel="nofollow">https://github.com/lungsi/validationHack.git</a></td>
+        <td>bd3fc8a4a14fc124c44fcb25acac2d565df52cf2</td>
+        <td><code>validationHack.tests.DensityFunctionTest</code></td>
+        <td>June. 08, 2017, 10:04 a.m.</td></tr>
+    
+    </tbody>
+</table>
+
+
+      </main>
+      </div>
+    </div>
+
+  </body>
+
+</html>
