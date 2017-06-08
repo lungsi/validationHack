@@ -25,16 +25,16 @@ class MicrocircuitModelInstance(sciunit.Model,
 
 # =========================Pre-MODEL Setup===================================
 # Initialize for loading the spike train data from storage
-%matplotlib inline
-import matplotlib.pyplot as plt
+#%matplotlib inline
+#import matplotlib.pyplot as plt
 import numpy as np
 from quantities import ms
 import sys
 import imp
 from scipy.linalg import eigh
-from IPython.core.display import HTML
+#from IPython.core.display import HTML
 import urllib2
-HTML(urllib2.urlopen('http://bit.ly/1Bf5Hft').read())
+#HTML(urllib2.urlopen('http://bit.ly/1Bf5Hft').read())
 
 # load simulation data
 spiketrains_nest = load(client, collab_path, "spikes_L6I_nest.h5")
