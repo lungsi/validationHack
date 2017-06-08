@@ -1,6 +1,6 @@
 # models.py
 import sciunit
-
+from capability import ProducesSpikeIntervals
 # ============================MODEL INSTANCE===================================
 class MicrocircuitModelInstance(sciunit.Model,
                                 ProducesSpikeIntervals):
