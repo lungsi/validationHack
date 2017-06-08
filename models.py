@@ -36,10 +36,6 @@ from scipy.linalg import eigh
 import urllib2
 #HTML(urllib2.urlopen('http://bit.ly/1Bf5Hft').read())
 
-# load simulation data
-spiketrains_nest = load(client, collab_path, "spikes_L6I_nest.h5")
-spiketrains_spinnaker = load(client, collab_path, "spikes_L6I_spinnaker.h5")
-
 # ============================MODEL-NEST=====================================
 
 # Load spiketrain data from storage
